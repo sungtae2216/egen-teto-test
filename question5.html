@@ -46,14 +46,15 @@
   </style>
 <script>
   function goNext(answer) {
-    sessionStorage.setItem("q5", answer);  // ← 사용자 응답 저장
+    const value = (answer === 'yes') ? "1" : "0";
+    sessionStorage.setItem("q5", value);
     window.location.href = "question6.html";
   }
-
   function goPrev() {
     window.location.href = "question4.html";
   }
 </script>
+
 
 </head>
 <body>
