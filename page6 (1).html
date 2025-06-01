@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>에겐·테토 테스트 결과 판단</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      background-color: #fffaf0;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+    .loading {
+      font-size: 18px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>결과를 분석 중입니다...</h1>
+  <p class="loading">잠시만 기다려주세요 😊</p>
+
+  <script>
+    // 성별과 점수를 localStorage에서 가져오기
+    const gender = localStorage.getItem("gender"); // "male" 또는 "female"
+    const score = parseInt(localStorage.getItem("egenScore")) || 0;
+
+    // 결과 페이지 결정
+    let resultUrl = "";
+    if (gender === "male") {
+      resultUrl = score >= 3 ? "egen_male.html" : "teto_male.html";
+    } else if (gender === "female") {
+      resultUrl = score >= 3 ? "egen_female.html" : "teto_female.html";
+    } else {
+      alert("성별 정보가 올바르지 않습니다. 처음부터 다시 시도해 주세요.");
+    }
+
+    // 결과 페이지로 이동
+    if (resultUrl) {
+      setTimeout(() => {
+        window.location.href = resultUrl;
+      }, 1500); // 1.5초 후 이동
+    }
+  </script>
+</body>
+</html>
