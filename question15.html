@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>에겐·테토 테스트 - 마지막 질문</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      background-color: #fffaf0;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .option {
+      margin-bottom: 20px;
+    }
+    label {
+      font-size: 1.1rem;
+      margin-right: 15px;
+    }
+    .btn {
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .btn-prev {
+      background-color: #ccc;
+      color: #333;
+    }
+    .btn-result {
+      background-color: #007acc;
+      color: white;
+    }
+  </style>
+  <script>
+    function goPrev() {
+      window.location.href = "question14.html";
+    }
+
+    function goResult() {
+      const selected = document.querySelector('input[name="q15"]:checked');
+      if (!selected) {
+        alert("예 또는 아니오를 선택해주세요.");
+        return;
+      }
+
+      const answer = selected.value;
+      let egenScore = parseInt(localStorage.getItem("egenScore") || "0");
+      let tetoScore = parseInt(localStorage.getItem("tetoScore") || "0");
+      const gender = localStorage.getItem("gender") || "male";
+
+      if (answer === "yes") {
+        egenScore += 1;
+      } else {
+        tetoScore += 1;
+      }
+
+      localStorage.setItem("egenScore", egenScore);
+      localStorage.setItem("tetoScore", tetoScore);
+
+      const type = egenScore > tetoScore ? "egen" : "teto";
+      const resultPage = "result_" + type + "_" + gender + ".html";
+      window.location.href = resultPage;
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>마지막 질문입니다.<br>새로운 환경에서도 금방 적응하는 편인가요?</h2>
+    <div class="option">
+      <input type="radio" id="yes" name="q15" value="yes">
+      <label for="yes">예</label>
+      <input type="radio" id="no" name="q15" value="no">
+      <label for="no">아니오</label>
+    </div>
+    <button class="btn btn-prev" onclick="goPrev()">이전</button>
+    <button class="btn btn-result" onclick="goResult()">결과 보기</button>
+  </div>
+</body>
+</html>
