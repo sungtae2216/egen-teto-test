@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>에겐·테토 테스트 결과 분석</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      background-color: #fffaf0;
+      text-align: center;
+      padding-top: 120px;
+    }
+    h1 {
+      font-size: 22px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .loading {
+      font-size: 16px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>당신의 성향을 분석 중입니다...</h1>
+  <p class="loading">잠시만 기다려 주세요 😊</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const q21 = params.get("q21");
+    const q22 = params.get("q22");
+    const q23 = params.get("q23");
+
+    if (!q21 || !q22 || !q23) {
+      alert("답변이 누락되었습니다. 다시 시도해 주세요.");
+      location.href = "page5.html";
+    } else {
+      // 간단한 점수 계산
+      let genderScore = 0;
+      if (q21 === "yes") genderScore++;
+      if (q22 === "yes") genderScore++;
+
+      const isEgen = (q23 === "yes");
+
+      let resultPage = "";
+
+      if (genderScore >= 1) {
+        resultPage = isEgen ? "egen_female.html" : "teto_female.html";
+      } else {
+        resultPage = isEgen ? "egen_male.html" : "teto_male.html";
+      }
+
+      // 1.5초 후 결과 페이지로 이동
+      setTimeout(() => {
+        window.location.href = resultPage;
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
