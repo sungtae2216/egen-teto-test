@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>에겐·테토 테스트 - 질문 15</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      background-color: #fffaf0;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background-color: #007acc;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #005f99;
+    }
+    .nav-btn {
+      background-color: #ccc;
+      color: #333;
+    }
+  </style>
+  <script>
+    function saveAnswer(answer) {
+      let answers = JSON.parse(localStorage.getItem('answers')) || [];
+      answers[14] = answer;
+      localStorage.setItem('answers', JSON.stringify(answers));
+      document.getElementById('status').textContent = "선택 완료 ✔";
+    }
+
+    function goPrev() {
+      window.location.href = "question14.html";
+    }
+
+    function calculateResult() {
+      const answers = JSON.parse(localStorage.getItem('answers')) || [];
+      const yesCount = answers.filter(ans => ans === 'yes').length;
+      const gender = localStorage.getItem('gender');
+      let resultType = '';
+
+      if (yesCount >= 8) {
+        resultType = 'egen';
+      } else {
+        resultType = 'teto';
+      }
+
+      if (gender === 'male') {
+        window.location.href = `result_${resultType}_male.html`;
+      } else {
+        window.location.href = `result_${resultType}_female.html`;
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>15. 낯선 환경에서도 금방 적응하는 편인가요?</h2>
+    <button class="btn" onclick="saveAnswer('yes')">예</button>
+    <button class="btn" onclick="saveAnswer('no')">아니오</button>
+    <p id="status" style="margin-top: 10px; font-weight: bold; color: green;"></p>
+    <div style="margin-top: 40px;">
+      <button class="btn nav-btn" onclick="goPrev()">이전</button>
+      <button class="btn" onclick="calculateResult()">결과 보기</button>
+    </div>
+  </div>
+</body>
+</html>
