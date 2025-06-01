@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>에겐·테토 테스트 - 마지막 질문</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      background-color: #fffaf0;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background-color: #007acc;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #005f99;
+    }
+    .nav-btn {
+      background-color: #ccc;
+      color: #333;
+    }
+  </style>
+  <script>
+    let selected = false;
+
+    function saveAnswer(answer) {
+      localStorage.setItem("q15", answer);
+      selected = true;
+      alert("답변이 저장되었습니다. 아래 '결과 보기' 버튼을 눌러주세요.");
+    }
+
+    function goPrev() {
+      window.location.href = "question14.html";
+    }
+
+    function showResult() {
+      if (!selected) {
+        alert("답변을 먼저 선택해주세요!");
+        return;
+      }
+
+      let egenScore = 0;
+      let gender = localStorage.getItem("gender");
+
+      for (let i = 1; i <= 15; i++) {
+        let ans = localStorage.getItem("q" + i);
+        if (ans === "yes") egenScore++;
+      }
+
+      const personality = egenScore >= 8 ? "egen" : "teto";
+
+      if (!gender) {
+        alert("성별 정보가 누락되었습니다. 테스트를 처음부터 다시 시작해주세요.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      const resultPage = `result_${personality}_${gender}.html`;
+      window.location.href = resultPage;
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>마지막 질문입니다!<br>긴 하루가 끝난 후, 혼자만의 시간이 꼭 필요한가요?</h2>
+    <button class="btn" onclick="saveAnswer('yes')">예</button>
+    <button class="btn" onclick="saveAnswer('no')">아니오</button>
+    <br><br>
+    <button class="btn nav-btn" onclick="goPrev()">이전</button>
+    <button class="btn" onclick="showResult()">결과 보기</button>
+  </div>
+</body>
+</html>
