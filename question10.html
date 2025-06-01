@@ -46,14 +46,15 @@
   </style>
 <script>
   function goNext(answer) {
-    sessionStorage.setItem("q10", answer);  // 질문 10번의 답 저장
+    const value = (answer === 'yes') ? "1" : "0";
+    sessionStorage.setItem("q10", value);
     window.location.href = "question11.html";
   }
-
   function goPrev() {
     window.location.href = "question9.html";
   }
 </script>
+
 
 </head>
 <body>
