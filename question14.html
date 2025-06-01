@@ -44,15 +44,17 @@
       color: #333;
     }
   </style>
-  <script>
-    function goNext(answer) {
-      // 저장 로직 필요시 여기에 삽입
-      window.location.href = "question15.html";
-    }
-    function goPrev() {
-      window.location.href = "question13.html";
-    }
-  </script>
+<script>
+  function goNext(answer) {
+    sessionStorage.setItem("q14", answer);  // 질문 14번의 응답 저장
+    window.location.href = "question15.html";
+  }
+
+  function goPrev() {
+    window.location.href = "question13.html";
+  }
+</script>
+
 </head>
 <body>
   <div class="container">
