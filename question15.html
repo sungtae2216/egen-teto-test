@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>에겐·테토 테스트 - 마지막 질문</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      background-color: #fffaf0;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+    }
+    .question-label {
+      color: #555;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      background-color: #eee;
+      transition: all 0.3s;
+    }
+    .btn.selected {
+      background-color: #007acc;
+      color: white;
+      border-color: #005f99;
+    }
+    .btn:hover {
+      background-color: #ddd;
+    }
+    .action-btn {
+      padding: 10px 18px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .action-btn:hover {
+      background-color: #005f99;
+    }
+  </style>
+  <script>
+    let answer = '';
+
+    function selectAnswer(val) {
+      answer = val;
+      document.getElementById('yesBtn').classList.remove('selected');
+      document.getElementById('noBtn').classList.remove('selected');
+      document.getElementById(val + 'Btn').classList.add('selected');
+      localStorage.setItem("q15", val);
+    }
+
+    function goResult() {
+      if (!answer) {
+        alert("질문에 답변해주세요.");
+        return;
+      }
+
+      const gender = localStorage.getItem("gender");
+      let egen = 0;
+      let teto = 0;
+
+      for (let i = 1; i <= 15; i++) {
+        const q = localStorage.getItem("q" + i);
+        if (q === "yes") egen++;
+        else if (q === "no") teto++;
+      }
+
+      if (!gender) {
+        alert("성별 정보가 누락되었습니다.");
+        return;
+      }
+
+      if (egen >= teto) {
+        if (gender === "female") {
+          location.href = "result_egen_female.html";
+        } else {
+          location.href = "result_egen_male.html";
+        }
+      } else {
+        if (gender === "female") {
+          location.href = "result_teto_female.html";
+        } else {
+          location.href = "result_teto_male.html";
+        }
+      }
+    }
+
+    function goPrev() {
+      window.location.href = "question14.html";
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="question-label">마지막 질문</div>
+    <h2>낯선 환경에서도 금방 적응하는 편인가요?</h2>
+    <button id="yesBtn" class="btn" onclick="selectAnswer('yes')">예</button>
+    <button id="noBtn" class="btn" onclick="selectAnswer('no')">아니오</button>
+    <br />
+    <button class="action-btn" onclick="goPrev()">이전</button>
+    <button class="action-btn" onclick="goResult()">결과 보기</button>
+  </div>
+</body>
+</html>
