@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -39,7 +38,12 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: 0.3s;
+      opacity: 0.6;
+    }
+    .btn.selected {
+      opacity: 1;
+      box-shadow: 0 0 0 3px #ccc;
     }
     .btn.yes {
       background-color: #4CAF50;
@@ -84,8 +88,12 @@
   <script>
     function selectAnswer(value) {
       sessionStorage.setItem("q15", value);
-      document.querySelector('.btn.yes').style.opacity = value == 1 ? '1' : '0.5';
-      document.querySelector('.btn.no').style.opacity = value == 0 ? '1' : '0.5';
+      document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('selected'));
+      if (value == 1) {
+        document.querySelector('.btn.yes').classList.add('selected');
+      } else {
+        document.querySelector('.btn.no').classList.add('selected');
+      }
     }
 
     function goBack() {
@@ -96,8 +104,13 @@
       const gender = sessionStorage.getItem("gender");
       const q15 = sessionStorage.getItem("q15");
 
-      if (!gender || q15 === null) {
-        alert("성별 또는 마지막 질문에 응답하지 않았습니다.");
+      if (!gender) {
+        alert("⚠ 성별이 선택되지 않았습니다. 첫 화면에서 성별을 선택해 주세요.");
+        return;
+      }
+
+      if (q15 === null) {
+        alert("⚠ 마지막 질문에 답변해 주세요.");
         return;
       }
 
@@ -110,10 +123,8 @@
 
       if (gender === "male") {
         window.location.href = isTeto ? "result_teto_male.html" : "result_egen_male.html";
-      } else if (gender === "female") {
-        window.location.href = isTeto ? "result_teto_female.html" : "result_egen_female.html";
       } else {
-        alert("성별이 올바르지 않습니다.");
+        window.location.href = isTeto ? "result_teto_female.html" : "result_egen_female.html";
       }
     }
   </script>
