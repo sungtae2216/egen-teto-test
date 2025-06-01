@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>에겐·테토 테스트 - 마지막 질문</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+      background-color: #fffaf0;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      margin: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background-color: #007acc;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #005f99;
+    }
+    .btn.selected {
+      background-color: #ff9800;
+      color: #fff;
+      font-weight: bold;
+    }
+    .nav-btn {
+      background-color: #ccc;
+      color: #333;
+    }
+  </style>
+  <script>
+    let selected = null;
+
+    function selectAnswer(answer) {
+      selected = answer;
+      localStorage.setItem("q15", answer);
+
+      document.getElementById("btn-yes").classList.remove("selected");
+      document.getElementById("btn-no").classList.remove("selected");
+
+      if (answer === "yes") {
+        document.getElementById("btn-yes").classList.add("selected");
+      } else {
+        document.getElementById("btn-no").classList.add("selected");
+      }
+    }
+
+    function goPrev() {
+      window.location.href = "question14.html";
+    }
+
+    function showResult() {
+      if (!selected) {
+        alert("답변을 선택해주세요.");
+        return;
+      }
+
+      const gender = localStorage.getItem("gender");
+      let egenScore = 0;
+      let tetoScore = 0;
+
+      for (let i = 1; i <= 15; i++) {
+        const ans = localStorage.getItem("q" + i);
+        if (ans === "yes") {
+          egenScore++;
+        } else if (ans === "no") {
+          tetoScore++;
+        }
+      }
+
+      if (!gender) {
+        alert("성별 정보가 누락되었습니다.");
+        return;
+      }
+
+      if (egenScore > tetoScore) {
+        if (gender === "female") {
+          window.location.href = "result_egen_female.html";
+        } else {
+          window.location.href = "result_egen_male.html";
+        }
+      } else {
+        if (gender === "female") {
+          window.location.href = "result_teto_female.html";
+        } else {
+          window.location.href = "result_teto_male.html";
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>💡 마지막 질문입니다!<br>친구나 지인에게 먼저 연락하는 편인가요?</h2>
+    <button id="btn-yes" class="btn" onclick="selectAnswer('yes')">예</button>
+    <button id="btn-no" class="btn" onclick="selectAnswer('no')">아니오</button>
+    <br><br>
+    <button class="btn nav-btn" onclick="goPrev()">이전</button>
+    <button class="btn" onclick="showResult()">결과 보기</button>
+  </div>
+</body>
+</html>
