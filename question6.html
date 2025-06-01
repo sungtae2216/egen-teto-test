@@ -43,17 +43,19 @@
       background-color: #ccc;
       color: #333;
     }
-<script>
-  function goNext(answer) {
-    sessionStorage.setItem("q6", answer);  // ← 질문 6번의 답변 저장
-    window.location.href = "question7.html";
-  }
+  </style>
 
-  function goPrev() {
-    window.location.href = "question5.html";
-  }
-</script>
+  <script>
+    function goNext(answer) {
+      const value = answer === 'yes' ? "1" : "0"; // 숫자 문자열로 변환
+      sessionStorage.setItem("q6", value);
+      window.location.href = "question7.html";
+    }
 
+    function goPrev() {
+      window.location.href = "question5.html";
+    }
+  </script>
 </head>
 <body>
   <div class="container">
