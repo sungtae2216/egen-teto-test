@@ -87,15 +87,16 @@
   </div>
 
   <script>
-    function selectAnswer(value) {
-      sessionStorage.setItem("q15", value);
-      document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('selected'));
-      if (value == 1) {
-        document.querySelector('.btn.yes').classList.add('selected');
-      } else {
-        document.querySelector('.btn.no').classList.add('selected');
-      }
-    }
+  function selectAnswer(value) {
+  const val = value === 1 ? "1" : "0";  // 숫자 문자열로 저장
+  sessionStorage.setItem("q15", val);
+  document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('selected'));
+  if (val === "1") {
+    document.querySelector('.btn.yes').classList.add('selected');
+  } else {
+    document.querySelector('.btn.no').classList.add('selected');
+  }
+}
 
     function goBack() {
       window.location.href = "question14.html";
