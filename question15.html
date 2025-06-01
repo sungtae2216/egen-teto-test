@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>질문 15</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .question {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+    }
+    .btn {
+      flex: 1;
+      margin: 5px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .footer-buttons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .footer-buttons .btn-secondary {
+      background-color: #6c757d;
+    }
+    .footer-buttons .btn-secondary:hover {
+      background-color: #565e64;
+    }
+    .btn-result {
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+    }
+    .btn-result:hover {
+      background: linear-gradient(to right, #e63946, #e76f51);
+    }
+  </style>
+  <script>
+    function answer(value) {
+      localStorage.setItem('q15', value);
+    }
+
+    function goBack() {
+      window.location.href = 'question14.html';
+    }
+
+    function showResult() {
+      // 점수 누적
+      let total = 0;
+      for (let i = 1; i <= 15; i++) {
+        total += parseInt(localStorage.getItem('q' + i) || '0');
+      }
+
+      const gender = localStorage.getItem('gender');
+
+      if (gender === 'male') {
+        if (total >= 8) {
+          window.location.href = 'result_teto_male.html';
+        } else {
+          window.location.href = 'result_egen_male.html';
+        }
+      } else {
+        if (total >= 8) {
+          window.location.href = 'result_teto_female.html';
+        } else {
+          window.location.href = 'result_egen_female.html';
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>질문 15</h2>
+    <div class="question">나는 혼자보다는 팀으로 함께 일할 때 더 즐겁다.</div>
+    <div class="btn-group">
+      <button class="btn" onclick="answer(1)">예</button>
+      <button class="btn" onclick="answer(0)">아니오</button>
+    </div>
+    <div class="footer-buttons">
+      <button class="btn btn-secondary" onclick="goBack()">이전</button>
+      <button class="btn btn-result" onclick="showResult()">결과 보기</button>
+    </div>
+  </div>
+</body>
+</html>
