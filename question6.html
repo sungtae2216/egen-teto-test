@@ -45,17 +45,17 @@
     }
   </style>
 
-  <script>
-    function goNext(answer) {
-      const value = answer === 'yes' ? "1" : "0"; // 숫자 문자열로 변환
-      sessionStorage.setItem("q6", value);
-      window.location.href = "question7.html";
-    }
+<script>
+  function goNext(answer) {
+    const value = (answer === 'yes') ? "1" : "0";
+    sessionStorage.setItem("q6", value);
+    window.location.href = "question7.html";
+  }
+  function goPrev() {
+    window.location.href = "question5.html";
+  }
+</script>
 
-    function goPrev() {
-      window.location.href = "question5.html";
-    }
-  </script>
 </head>
 <body>
   <div class="container">
